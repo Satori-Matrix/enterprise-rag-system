@@ -1,0 +1,49 @@
+services:
+  chainlit:
+    build: .
+    container_name: chainlit_revive
+    restart: unless-stopped
+    expose:
+      - "8000"
+    networks:
+      - app-net
+    volumes:
+      - ./public:/app/public
+    env_file:
+      - .env
+    depends_on:
+      postgres_chainlit:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.chainlit.rule=Host(`chat.srv1178070.hstgr.cloud`)"
+      - "traefik.http.routers.chainlit.tls=true"
+      - "traefik.http.routers.chainlit.entrypoints=websecure"
+      - "traefik.http.routers.chainlit.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.chainlit.loadbalancer.server.port=8000"
+
+  postgres_chainlit:
+    image: postgres:14
+    container_name: postgres_chainlit
+    restart: unless-stopped
+    networks:
+      - app-net
+    volumes:
+      - postgres_chainlit_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: chainlit
+      POSTGRES_PASSWORD: chainlit_secure_2025
+      POSTGRES_DB: chainlit_db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U chainlit -d chainlit_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  app-net:
+    external: true
+
+volumes:
+  postgres_chainlit_data:
+    name: postgres_chainlit_data

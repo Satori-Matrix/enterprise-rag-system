@@ -1,0 +1,59 @@
+version: "3.8"
+services:
+  raganything:
+    build: .
+    container_name: raganything
+    restart: unless-stopped
+    expose:
+      - "9621"
+    networks:
+      - app-net
+    volumes:
+      - raganything_inputs:/app/inputs
+      - raganything_storage:/app/rag_storage
+      - raganything_output:/app/output
+      - ./scripts:/app/scripts:ro
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rag.rule=Host(`rag.srv1178070.hstgr.cloud`)"
+      - "traefik.http.routers.rag.tls=true"
+      - "traefik.http.routers.rag.entrypoints=websecure"
+      - "traefik.http.routers.rag.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.rag.loadbalancer.server.port=9621"
+
+  postgres:
+    image: pgvector/pgvector:pg14
+    container_name: postgres_rag
+    restart: unless-stopped
+    networks:
+      - app-net
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: raguser
+      POSTGRES_PASSWORD: ragpass123
+      POSTGRES_DB: ragdb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U raguser -d ragdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  app-net:
+    external: true
+
+volumes:
+  raganything_inputs:
+    name: raganything_inputs
+  raganything_storage:
+    name: raganything_storage
+  raganything_output:
+    name: raganything_output
+  postgres_data:
+    name: postgres_rag_data

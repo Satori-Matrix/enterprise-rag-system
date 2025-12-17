@@ -1,0 +1,14 @@
+/* Custom CSS for Revive Battery Chainlit Interface */
+
+/* Hide default footer and add custom footer */
+.MuiAlert-message {
+    display: none !important;
+}
+
+/* Add custom footer via CSS content */
+.MuiAlert-root::after {
+    content: "AI can make mistakes. Please verify responses. For assistance: info@revivebattery.eu";
+    display: block;
+    font-size: 0.875rem;
+    color: rgba(0, 0, 0, 0.6);
+}

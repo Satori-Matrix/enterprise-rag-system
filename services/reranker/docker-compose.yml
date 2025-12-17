@@ -1,0 +1,27 @@
+# Reranker Service Docker Compose
+# Cohere-compatible API for LightRAG integration
+
+services:
+  reranker:
+    build: .
+    container_name: reranker
+    restart: unless-stopped
+    environment:
+      - PORT=8080
+      - RERANK_MODEL=cross-encoder/ms-marco-MiniLM-L-6-v2
+      - MAX_LENGTH=512
+    ports:
+      - "8080"  # Internal only, not exposed to host
+    networks:
+      - app-net
+    deploy:
+      resources:
+        limits:
+          memory: 2G  # Safety limit
+        reservations:
+          memory: 1G  # Minimum needed
+
+networks:
+  app-net:
+    external: true
+

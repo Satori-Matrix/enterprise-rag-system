@@ -1,0 +1,106 @@
+[project]
+# Chainlit Configuration for Revive Battery Knowledge Assistant
+# Query-Only Interface (No Document Processing)
+
+# Duration (in seconds) during which the session is saved when the connection is lost
+session_timeout = 3600
+
+# Duration (in seconds) of the user session expiry
+user_session_timeout = 1296000  # 15 days
+
+# Enable third parties caching
+cache = false
+
+# Authorized origins
+allow_origins = ["*"]
+
+[features]
+# Process and display HTML in messages
+unsafe_allow_html = true
+
+# Process and display mathematical expressions
+latex = false
+
+# Autoscroll new user messages at the top of the window
+user_message_autoscroll = true
+
+# Automatically tag threads with the current chat profile
+auto_tag_thread = true
+
+# Allow users to edit their own messages
+edit_message = true
+
+# Allow users to share threads
+allow_thread_sharing = false
+
+# ═══════════════════════════════════════════════════════════════════
+# FILE UPLOAD: DISABLED
+# Reason: This is a query-only interface on CPU VPS
+# Document processing happens on GPU (RunPod) separately
+# No file processing handlers exist in app.py
+# ═══════════════════════════════════════════════════════════════════
+[features.spontaneous_file_upload]
+    enabled = false  # ← DISABLED for query-only interface
+    accept = []
+    max_files = 0
+    max_size_mb = 0
+
+# ═══════════════════════════════════════════════════════════════════
+# AUDIO: DISABLED
+# Not needed for text-based battery knowledge queries
+# ═══════════════════════════════════════════════════════════════════
+[features.audio]
+    enabled = false
+    sample_rate = 24000
+
+[features.mcp]
+    enabled = false
+
+[UI]
+# Name of the assistant
+name = "Revive Battery Knowledge Assistant"
+
+# Description (shown in browser tab)
+description = "Confidential Internal AI System"
+
+# Chain of Thought display mode
+cot = "full"
+
+# Alert box style
+alert_style = "classic"
+
+# Default theme (light/dark)
+default_theme = "light"
+
+# Custom CSS file (relative to public folder)
+custom_css = "/custom.css"
+
+# Custom font (optional)
+custom_font = "Inter"
+
+# Show collapse button on sidebar
+collapse_sidebar = true
+
+# Show data layer (chat history persistence)
+show_readme_as_default = true
+
+[UI.theme]
+# Revive Battery Brand Colors
+[UI.theme.light]
+    background = "#FFFFFF"
+    paper = "#F5F5F5"
+    
+    [UI.theme.light.primary]
+        main = "#00B050"     # Revive Green
+        dark = "#009040"
+        light = "#33C070"
+    
+    [UI.theme.light.secondary]  
+        main = "#003366"     # Revive Navy
+        dark = "#002050"
+        light = "#1A5080"
+
+[meta]
+generated_by = "2.9.3"
+custom_config = "query_only_interface"
+

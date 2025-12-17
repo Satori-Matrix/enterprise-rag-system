@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <!-- Revive Battery Logo -->
+  
+  <!-- Green dots pattern (left side) -->
+  <circle cx="10" cy="15" r="3" fill="#00B050"/>
+  <circle cx="10" cy="25" r="3" fill="#00B050"/>
+  <circle cx="10" cy="35" r="3" fill="#00B050"/>
+  
+  <circle cx="18" cy="20" r="3" fill="#00B050"/>
+  <circle cx="18" cy="30" r="3" fill="#00B050"/>
+  
+  <circle cx="26" cy="15" r="3" fill="#00B050"/>
+  <circle cx="26" cy="25" r="3" fill="#00B050"/>
+  <circle cx="26" cy="35" r="3" fill="#00B050"/>
+  
+  <!-- Arrow pointing right -->
+  <path d="M 30 25 L 42 25 L 37 20 M 42 25 L 37 30" stroke="#00B050" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- "Revive" text in navy -->
+  <text x="50" y="28" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#003366">Revive</text>
+  
+  <!-- "BATTERY" text in navy (smaller, uppercase) -->
+  <text x="50" y="45" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#003366" letter-spacing="2">BATTERY</text>
+</svg>
+
