@@ -217,7 +217,7 @@ The system supports both development and production configurations:
 
 **LightRAG Hybrid Mode Fix**: Critical bug resolution
 - Identified and fixed empty result issue in hybrid retrieval mode
-- Contributed patch back to open source community
+- Developed custom patches for local deployment
 - Improved system reliability for production deployments
 
 **Chainlit Persistence Bug**: Chat history storage fix
